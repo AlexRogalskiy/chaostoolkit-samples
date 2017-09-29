@@ -4,8 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -13,14 +12,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SimpleBootMicroserviceConsumerApplication.class)
+@SpringBootTest
 @WebAppConfiguration
-@IntegrationTest
 public class SimpleBootMicroserviceConsumerApplicationTests {
 
     private MockMvc mockMvc;
@@ -45,6 +44,9 @@ public class SimpleBootMicroserviceConsumerApplicationTests {
                 .andExpect(content().contentType("text/plain;charset=UTF-8"))
                 .andReturn();
 
-        result.getResponse().getContentAsString().contains("Hello Microservice World");
+        assertTrue(result.
+                getResponse().
+                getContentAsString().
+                contains("Simple Boot Microservice Consumer Alive!"));
     }
 }
