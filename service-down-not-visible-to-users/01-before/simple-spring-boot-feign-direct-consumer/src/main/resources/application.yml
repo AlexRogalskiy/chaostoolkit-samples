@@ -7,4 +7,4 @@ endpoints:
 consumed:
   microservice:
     name: "microservice1"
-    url: "http://192.168.99.100:8090/" #Change this to whatever your URL is for the consumed microservice
+    url: "http://my-provider-service:8080/" #Change this to whatever your URL is for the consumed microservice

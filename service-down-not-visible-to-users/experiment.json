@@ -1,0 +1,64 @@
+{
+    "title": "System is resilient to provider's failures",
+    "description": "Can our consumer survive gracefully a provider's failure?",
+    "target-layers": {
+        "platforms": [
+            { "key": "kubernetes" }
+        ],
+        "applications": [
+            { "key": "spring" }
+        ]
+    },
+    "method": [
+        {
+            "title": "Checking our system is healthy",
+            "probes": {
+                "steady": {
+                    "layer": "kubernetes",
+                    "name": "microservices-all-healthy"
+                }
+            }
+        },
+        {
+            "title": "Killing the provider abruptly",
+            "action": {
+                "layer": "kubernetes",
+                "name": "kill-microservice",
+                "parameters": {
+                    "name": "my-provider-service"
+                },
+                "pauses": {
+                    "after": 10
+                }
+            },
+            "probes": {
+                "steady": {
+                    "layer": "kubernetes",
+                    "name": "microservice-available-and-healthy",
+                    "parameters": {
+                        "name": "my-provider-service"
+                    }
+                },
+                "close": {
+                    "layer": "kubernetes",
+                    "name": "microservice-is-not-available",
+                    "parameters": {
+                        "name": "my-provider-service"
+                    }
+                }
+            }
+        },
+        {
+            "title": "Consumer should not be impacted by provider's failure",
+            "probes": {
+                "steady": {
+                    "layer": "spring",
+                    "name": "endpoint-should-respond-ok",
+                    "parameters": {
+                        "url": "http://192.168.99.100:32666/invokeConsumedService"
+                    }
+                }
+            }
+        }
+    ]
+}
