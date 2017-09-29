@@ -6,13 +6,13 @@ First make sure you're running in an environment that has docker available to yo
 
 $ ./mvnw package docker:build
 
-Once completed you will have an antifragilesoftware/simple-boot-feign-direct-microservice-consumer image available, as seen by executing:
+Once completed you will have an chaostoolkit/simple-boot-feign-direct-microservice-consumer image available, as seen by executing:
 
 $ docker images
 
 ```
 REPOSITORY                                                      TAG                 IMAGE ID            CREATED             SIZE
-antifragilesoftware/simple-boot-feign-direct-microservice-consumer                      latest              39fc873649d9        3 seconds ago       667.6 MB
+chaostoolkit/simple-boot-feign-direct-microservice-consumer                      latest              39fc873649d9        3 seconds ago       667.6 MB
 ```
 
 
