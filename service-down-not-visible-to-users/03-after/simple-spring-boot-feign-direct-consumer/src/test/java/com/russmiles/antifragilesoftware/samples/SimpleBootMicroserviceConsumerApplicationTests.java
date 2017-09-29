@@ -49,4 +49,17 @@ public class SimpleBootMicroserviceConsumerApplicationTests {
                 getContentAsString().
                 contains("Simple Boot Microservice Consumer Alive!"));
     }
+
+    @Test
+    public void fallbackWorking() throws Exception {
+        MvcResult result = mockMvc.perform(get("/invokeConsumedService"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=UTF-8"))
+                .andReturn();
+
+        assertTrue(result.
+                getResponse().
+                getContentAsString().
+                contains("Hmm, no one available to say hello just yet ... maybe try later?"));
+    }
 }
