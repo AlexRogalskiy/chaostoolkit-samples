@@ -1,5 +1,5 @@
 
-# Sample Chaos Experiment - `service-down-not-visible-to-users` 
+# "Service Down Not Visible To Users" Sample Chaos Experiment
 
 This sample experiment demonstrates a simple learning loop where the `before` conditions are such that the 
 services don't use circuit breakers and sonundesirable failures will be exposed, and the
