@@ -2,7 +2,7 @@
 # "Service Down Not Visible To Users" Sample Chaos Experiment
 
 This sample experiment demonstrates a simple learning loop where the `before` conditions are such that the 
-services don't use circuit breakers and sonundesirable failures will be exposed, and the
+services don't use circuit breakers and so nundesirable weaknesses will be exposed, and the
 `after` conditions are such that same experiment will now not raise the same concerns once something like a circuit breaker has been introduced.
 
 More will be coming soon how Chaos Experiments help you achieve double-loop learning in the main Chaos Toolkit documentation.
