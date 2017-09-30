@@ -30,6 +30,17 @@ Now you can run your experiment as follows:
 (venv) $ chaos run experiment.json
 ```
 
+Or using the Docker image, assuming you are using minikube and running from
+the directory of this README file:
+
+```
+$ docker run --rm -it \
+    -v $HOME/.kube:/root/.kube \
+    -v $HOME/.minikube:$HOME/.minikube \
+    -v `pwd`:/tmp/exp \
+    chaostoolkit/chaostoolkit run /tmp/exp/experiment.json
+```
+
 This experiment should indicate that the consumer endpoint failed to reply
 when this is what we would expect even when its producer has failed. This
 invites us to use a fallback mechanism, like a circuit breaker, in our
@@ -39,6 +50,7 @@ This is what was done in the application under the `03-after` directory. Let's
 deploy it and re-run our experiment:
 
 ```
+$ kubectl delete deployment my-consumer-app my-provider-app
 $ kubectl create -f 03-after/provider-deployment.json
 $ kubectl create -f 03-after/consumer-deployment.json
 ```
@@ -46,6 +58,18 @@ $ kubectl create -f 03-after/consumer-deployment.json
 ```
 (venv) $ chaos run experiment.json
 ```
+
+Or using the Docker image, assuming you are using minikube and running from
+the directory of this README file:
+
+```
+$ docker run --rm -it \
+    -v $HOME/.kube:/root/.kube \
+    -v $HOME/.minikube:$HOME/.minikube \
+    -v `pwd`:/tmp/exp \
+    chaostoolkit/chaostoolkit run /tmp/exp/experiment.json
+```
+
 
 Now the experiment should go all the way successfully because our probe
 asking the consumer's status was successful!
