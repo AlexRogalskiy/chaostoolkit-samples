@@ -36,7 +36,6 @@
                     "module": "chaosk8s.probes",
                     "func": "microservice_available_and_healthy",
                     "layer": "kubernetes",
-                    "name": "microservice-available-and-healthy",
                     "arguments": {
                         "name": "my-provider-service"
                     }
