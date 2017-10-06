@@ -27,18 +27,8 @@ last probe.
 Now you can run your experiment as follows:
 
 ```
+(venv) $ pip install chaostoolkit-kubernetes
 (venv) $ chaos run experiment.json
-```
-
-Or using the Docker image, assuming you are using minikube and running from
-the directory of this README file:
-
-```
-$ docker run --rm -it \
-    -v $HOME/.kube:/root/.kube \
-    -v $HOME/.minikube:$HOME/.minikube \
-    -v `pwd`:/tmp/exp \
-    chaostoolkit/chaostoolkit run /tmp/exp/experiment.json
 ```
 
 This experiment should indicate that the consumer endpoint failed to reply
@@ -57,17 +47,6 @@ $ kubectl create -f 03-after/consumer-deployment.json
 
 ```
 (venv) $ chaos run experiment.json
-```
-
-Or using the Docker image, assuming you are using minikube and running from
-the directory of this README file:
-
-```
-$ docker run --rm -it \
-    -v $HOME/.kube:/root/.kube \
-    -v $HOME/.minikube:$HOME/.minikube \
-    -v `pwd`:/tmp/exp \
-    chaostoolkit/chaostoolkit run /tmp/exp/experiment.json
 ```
 
 

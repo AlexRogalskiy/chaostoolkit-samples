@@ -1,30 +1,28 @@
 {
     "title": "System is resilient to provider's failures",
     "description": "Can our consumer survive gracefully a provider's failure?",
-    "target-layers": {
-        "platforms": [
-            { "key": "kubernetes" }
-        ],
-        "applications": [
-            { "key": "spring" }
-        ]
-    },
     "method": [
         {
             "title": "Checking our system is healthy",
             "probes": {
                 "steady": {
-                    "layer": "kubernetes",
-                    "name": "microservices-all-healthy"
+                    "title": "All services must be healthy before we begin",
+                    "type": "python",
+                    "module": "chaosk8s.probes",
+                    "func": "all_microservices_healthy",
+                    "layer": "kubernetes"
                 }
             }
         },
         {
             "title": "Killing the provider abruptly",
             "action": {
+                "title": "Let's stop our provider",
+                "type": "python",
+                "module": "chaosk8s.actions",
+                "func": "kill_microservice",
                 "layer": "kubernetes",
-                "name": "kill-microservice",
-                "parameters": {
+                "arguments": {
                     "name": "my-provider-service"
                 },
                 "pauses": {
@@ -33,16 +31,23 @@
             },
             "probes": {
                 "steady": {
+                    "title": "Before we kill it, our microservice should be alive",
+                    "type": "python",
+                    "module": "chaosk8s.probes",
+                    "func": "microservice_available_and_healthy",
                     "layer": "kubernetes",
                     "name": "microservice-available-and-healthy",
-                    "parameters": {
+                    "arguments": {
                         "name": "my-provider-service"
                     }
                 },
                 "close": {
+                    "title": "All services must be healthy before we begin",
+                    "type": "python",
+                    "module": "chaosk8s.probes",
+                    "func": "microservice_is_not_available",
                     "layer": "kubernetes",
-                    "name": "microservice-is-not-available",
-                    "parameters": {
+                    "arguments": {
                         "name": "my-provider-service"
                     }
                 }
@@ -52,11 +57,10 @@
             "title": "Consumer should not be impacted by provider's failure",
             "probes": {
                 "steady": {
+                    "title": "Consume should respond as if nothing",
+                    "type": "http",
                     "layer": "spring",
-                    "name": "endpoint-should-respond-ok",
-                    "parameters": {
-                        "url": "http://192.168.99.100:32666/invokeConsumedService"
-                    }
+                    "url": "http://192.168.99.100:32344/invokeConsumedService"
                 }
             }
         }
