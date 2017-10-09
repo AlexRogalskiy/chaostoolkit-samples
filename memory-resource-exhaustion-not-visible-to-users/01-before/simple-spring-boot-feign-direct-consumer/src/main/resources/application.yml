@@ -1,0 +1,10 @@
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+consumed:
+  microservice:
+    name: "microservice1"
+    url: "http://my-provider-service:8080/" #Change this to whatever your URL is for the consumed microservice
