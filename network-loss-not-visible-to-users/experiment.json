@@ -1,0 +1,60 @@
+{
+    "title": "System is resilient to network link loss",
+    "description": "Can our consumer survive network going awol?",
+    "method": [
+        {
+            "title": "Our microservices are expected to be available for this experiment",
+            "probes": {
+                "steady": {
+                    "title": "Looking up the availability of our services",
+                    "type": "python",
+                    "module": "chaosk8s.probes",
+                    "func": "all_microservices_healthy",
+                    "layer": "kubernetes"
+                }
+            }
+        },
+        {
+            "title": "Service endpoints must be initialized so we know microservices can talk to each other",
+            "probes": {
+                "steady": {
+                    "title": "Check provider service is initialized",
+                    "type": "python",
+                    "module": "chaosk8s.probes",
+                    "func": "service_endpoint_is_initialized",
+                    "arguments": {
+                        "name": "my-provider-service"
+                    },
+                    "layer": "kubernetes"
+                }
+            }
+        },
+        {
+            "title": "Pretend network is broken between consumer and provider by killing the provider service endpoint",
+            "action": {
+                "title": "Remove the provider service endpoint",
+                "type": "python",
+                "module": "chaosk8s.actions",
+                "func": "remove_service_endpoint",
+                "layer": "kubernetes",
+                "arguments": {
+                    "name": "my-provider-service"
+                },
+                "pauses": {
+                    "after": 30
+                }
+            }
+        },
+        {
+            "title": "Consumer should not be impacted by provider's failure",
+            "probes": {
+                "steady": {
+                    "title": "Consume should respond as if nothing, even if it's a message saying try later",
+                    "type": "http",
+                    "layer": "spring",
+                    "url": "http://192.168.99.100:31105/invokeConsumedService"
+                }
+            }
+        }
+    ]
+}
