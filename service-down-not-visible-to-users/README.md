@@ -3,7 +3,7 @@
 
 This sample experiment demonstrates a simple learning loop where the `before`
 conditions are such that the  services don't use circuit breakers and so
-nundesirable weaknesses will be exposed, and the `after` conditions are such
+undesirable weaknesses will be exposed, and the `after` conditions are such
 that same experiment will now not raise the same concerns once something like a
 circuit breaker has been introduced.
 
