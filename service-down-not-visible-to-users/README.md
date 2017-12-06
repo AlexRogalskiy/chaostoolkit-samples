@@ -12,12 +12,24 @@ learning in the main Chaos Toolkit documentation.
 
 ## Prerequisites
 
-To run this you will need the [Chaos Toolkit CLI][chaos-toolkit] installed and
-have access to a Kubernetes cluster. For simplicity in getting up and running we
-assume you're using a local [minikube][] here.
+To run this you will need the [Chaos Toolkit CLI][chaos-toolkit] >= 0.3.0
+installed and have access to a Kubernetes cluster. For simplicity in getting
+up and running we assume you're using a local [minikube][] here.
+
+```shell
+(venv) $ pip install -U chaostoolkit
+```
 
 [chaos-toolkit]: https://github.com/chaostoolkit/chaostoolkit
 [minikube]: https://kubernetes.io/docs/getting-started-guides/minikube/
+
+You will also need to install the [chaostoolkit-kubernetes][chaosk8s] extension:
+
+```shell
+(venv) $ pip install -U chaostoolkit-kubernetes
+```
+
+[chaosk8s]: https://github.com/chaostoolkit/chaostoolkit-kubernetes
 
 ## Running the Experiment to Discover the `before` Weaknesses
 
@@ -45,7 +57,6 @@ to set the URL for the last probe in the experiment.
 To run the experiment against the `before` conditions use the Chaos Toolkit CLI:
 
 ```shell
-(venv) $ pip install chaostoolkit-kubernetes
 (venv) $ chaos run experiment.json
 ```
 
