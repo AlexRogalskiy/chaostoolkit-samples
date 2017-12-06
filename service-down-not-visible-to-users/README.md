@@ -65,18 +65,23 @@ to reply when this is what we would expect even when the producer has failed as
 shown in the following experiment sample output:
 
 ```shell
-[2017-10-06 17:37:33 INFO] Running experiment: System is resilient to provider's failures
-[2017-10-06 17:37:33 INFO] Observing steady state: All services must be healthy before we begin
-[2017-10-06 17:37:33 INFO] Steady State suceeeded
-[2017-10-06 17:37:33 INFO] Observing steady state: Before we kill it, our microservice should be alive
-[2017-10-06 17:37:33 INFO] Steady State suceeeded
-[2017-10-06 17:37:33 INFO] Observing action: Let's stop our provider
-[2017-10-06 17:37:33 INFO] Action suceeeded
-[2017-10-06 17:37:33 INFO] Observing close state: All services must be healthy before we begin
-[2017-10-06 17:37:33 INFO] Close State suceeeded
-[2017-10-06 17:37:33 INFO] Observing steady state: Consume should respond as if nothing
-[2017-10-06 17:37:44 ERROR] Steady State failed: {"timestamp":1507304264100,"status":500,"error":"Internal Server Error","exception":"feign.RetryableException","message":"connect timed out executing GET http://my-provider-service:8080/","path":"/invokeConsumedService"}
-[2017-10-06 17:37:44 INFO] Experiment is now complete
+[2017-12-06 16:38:01 INFO] Validating experiment's syntax
+[2017-12-06 16:38:01 INFO] Experiment looks valid
+[2017-12-06 16:38:01 INFO] Running experiment: System is resilient to provider's failures
+[2017-12-06 16:38:01 INFO] Steady state hypothesis: Services are all available and healthy
+[2017-12-06 16:38:01 INFO] Probe: all-services-are-healthy
+[2017-12-06 16:38:01 INFO]   => succeeded with 'True'
+[2017-12-06 16:38:01 INFO] Steady state hypothesis is met, we can carry on!
+[2017-12-06 16:38:01 INFO] Action: stop-provider-service
+[2017-12-06 16:38:01 INFO]   => succeeded without any result value
+[2017-12-06 16:38:01 INFO]   Pausing after for 10s...
+[2017-12-06 16:38:11 INFO] Probe: all-services-are-healthy
+[2017-12-06 16:38:11 INFO]   => succeeded with 'True'
+[2017-12-06 16:38:11 INFO] Probe: consumer-service-must-still-respond
+[2017-12-06 16:38:24 ERROR]    => failed: {"timestamp":1512574703491,"status":500,"error":"Internal Server Error","exception":"feign.RetryableException","message":"connect timed out executing GET http://my-provider-service:8080/","path":"/invokeConsumedService"}
+[2017-12-06 16:38:24 INFO] Experiment is now complete. Let's rollback...
+[2017-12-06 16:38:24 INFO] No declared rollbacks, let's move on.
+[2017-12-06 16:38:24 INFO] Experiment is now completed
 ```
 
 This new learning from the experiment invites us to learn how to overcome this
@@ -106,16 +111,21 @@ steady-state health according to the experiment's probes as shown in the
 following experiment sample output:
 
 ```shell
-[2017-10-06 17:40:25 INFO] Running experiment: System is resilient to provider's failures
-[2017-10-06 17:40:25 INFO] Observing steady state: All services must be healthy before we begin
-[2017-10-06 17:40:25 INFO] Steady State suceeeded
-[2017-10-06 17:40:25 INFO] Observing steady state: Before we kill it, our microservice should be alive
-[2017-10-06 17:40:26 INFO] Steady State suceeeded
-[2017-10-06 17:40:26 INFO] Observing action: Let's stop our provider
-[2017-10-06 17:40:26 INFO] Action suceeeded
-[2017-10-06 17:40:26 INFO] Observing close state: All services must be healthy before we begin
-[2017-10-06 17:40:26 INFO] Close State suceeeded
-[2017-10-06 17:40:26 INFO] Observing steady state: Consume should respond as if nothing
-[2017-10-06 17:40:30 INFO] Steady State suceeeded
-[2017-10-06 17:40:30 INFO] Experiment is now complete
+[2017-12-06 16:42:58 INFO] Validating experiment's syntax
+[2017-12-06 16:42:58 INFO] Experiment looks valid
+[2017-12-06 16:42:58 INFO] Running experiment: System is resilient to provider's failures
+[2017-12-06 16:42:58 INFO] Steady state hypothesis: Services are all available and healthy
+[2017-12-06 16:42:58 INFO] Probe: all-services-are-healthy
+[2017-12-06 16:42:58 INFO]   => succeeded with 'True'
+[2017-12-06 16:42:58 INFO] Steady state hypothesis is met, we can carry on!
+[2017-12-06 16:42:58 INFO] Action: stop-provider-service
+[2017-12-06 16:42:58 INFO]   => succeeded without any result value
+[2017-12-06 16:42:58 INFO]   Pausing after for 10s...
+[2017-12-06 16:43:08 INFO] Probe: all-services-are-healthy
+[2017-12-06 16:43:08 INFO]   => succeeded with 'True'
+[2017-12-06 16:43:08 INFO] Probe: consumer-service-must-still-respond
+[2017-12-06 16:43:18 INFO]   => succeeded with 'Hmm, no one available to say hello just yet ... maybe try later?'
+[2017-12-06 16:43:18 INFO] Experiment is now complete. Let's rollback...
+[2017-12-06 16:43:18 INFO] No declared rollbacks, let's move on.
+[2017-12-06 16:43:18 INFO] Experiment is now completed
 ```
