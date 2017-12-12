@@ -15,6 +15,7 @@
         "metadata" : {
           "name" : "my-provider-app",
           "labels" : {
+            "name" : "my-provider-app",
             "service" : "my-provider-service"
           }
         },

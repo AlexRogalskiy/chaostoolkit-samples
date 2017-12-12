@@ -15,6 +15,7 @@
         "metadata" : {
           "name" : "my-consumer-app",
           "labels" : {
+            "name" : "my-consumer-app",
             "service" : "my-consumer-service"
           }
         },
@@ -31,7 +32,7 @@
             "resources" : {
               "limits" : {
                 "cpu" : 0.4,
-                "memory" : "256Mi"
+                "memory" : "512Mi"
               },
               "requests" : {
                 "cpu" : 0.2,

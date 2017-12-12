@@ -31,11 +31,11 @@
                 "module": "chaosk8s.actions",
                 "func": "kill_microservice",
                 "arguments": {
-                    "name": "my-provider-service"
+                    "name": "my-provider-app"
                 }
             },
             "pauses": {
-                "after": 10
+                "after": 15
             }
         },
         {
@@ -47,7 +47,7 @@
             "name": "consumer-service-must-still-respond",
             "provider": {
                 "type": "http",
-                "url": "http://192.168.42.58:31018/invokeConsumedService"
+                "url": "http://192.168.39.7:31546/invokeConsumedService"
             }
         }
     ],
