@@ -1,0 +1,4 @@
+aiohttp
+pyfailsafe
+sanic
+sanic-prometheus
