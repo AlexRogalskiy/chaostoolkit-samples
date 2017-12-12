@@ -8,3 +8,4 @@ bin
 *.iml
 .idea
 **/chaos-report.json
+**/experiment.log
