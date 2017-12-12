@@ -185,9 +185,10 @@ $ chaos --log-file=experiment.log run experiment.json
 
 ## Clean Up
 
-You should probably delete the Kubernetes cluster:
+You should probably clean the Kubernetes cluster:
 
 ```
+$ kubectl --namespace=kube-system delete ds gremlin
 $ kubectl delete svc my-consumer-service my-provider-service
 $ kubectl delete deployment my-consumer-app my-provider-app
 
