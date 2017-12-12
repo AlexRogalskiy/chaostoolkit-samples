@@ -18,7 +18,7 @@ an account with [Gremlin][gremlin] and a token to run attacks.
 [gremlin]: https://www.gremlin.com
 [chaos-toolkit]: https://github.com/chaostoolkit/chaostoolkit
 
-### Chaos Toolkit Dependencies
+### Chaos Toolkit Dependencies
 
 Make sure to install the latest chaostoolkit CLI:
 
@@ -36,7 +36,7 @@ You will also need to install the [chaostoolkit-kubernetes][chaosk8s] and
 [chaosk8s]: https://github.com/chaostoolkit/chaostoolkit-kubernetes
 [chaosgremlin: https://github.com/chaostoolkit/chaostoolkit-gremlin
 
-### Kubernetes
+### Kubernetes
 
 If you running minikube, you may want to create your stack as follows:
 
