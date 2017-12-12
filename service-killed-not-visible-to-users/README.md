@@ -199,3 +199,11 @@ You can even simply delete the Kubernetes cluster when it's a throwaway one:
 ```
 $ minikube delete
 ```
+
+## How does this work?
+
+[Gremlin][gremlin] is a SaaS product that allows you to schedule failures in
+your system by "attacking" some of its resources (CPU, network...). In this
+experiment, we schedule an attack on the provider service by terminating its
+container. Automatically, Kubernetes notices it and restart it. This gives us
+our window to querying our consumer to see how it behaves under that condition.
