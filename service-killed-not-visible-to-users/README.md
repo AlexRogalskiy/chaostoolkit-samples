@@ -72,13 +72,13 @@ Gremlin org and secret ID that were given to you when you registered to Gremlin.
 Next, you can deploy Gremlin in your cluster as follows:
 
 ```
-$ kubectl -f gremlin.yml
+$ kubectl create -f gremlin.yml
 ```
 
 Make sure it is running by looking for it:
 
 ```
-$ kubectl --namespace=kube-system logs gremlin
+$ kubectl --namespace=kube-system get pods | grep gremlin
 ```
 
 ## Running the Experiment to Discover the `before` Weaknesses
