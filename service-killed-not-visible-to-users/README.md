@@ -200,7 +200,7 @@ You can even simply delete the Kubernetes cluster when it's a throwaway one:
 $ minikube delete
 ```
 
-## How does this work?
+## How does this work?
 
 [Gremlin][gremlin] is a SaaS product that allows you to schedule failures in
 your system by "attacking" some of its resources (CPU, network...). In this
