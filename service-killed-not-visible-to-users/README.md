@@ -113,23 +113,29 @@ shown in the following experiment sample output:
 
 ```shell
 $ chaos --log-file=experiment.log run experiment.json 
-[2017-12-12 17:32:04 INFO] Validating experiment's syntax
-[2017-12-12 17:32:05 INFO] Experiment looks valid
-[2017-12-12 17:32:05 INFO] Running experiment: System is resilient to provider's failures
-[2017-12-12 17:32:05 INFO] Steady state hypothesis: Services are all available and healthy
-[2017-12-12 17:32:05 INFO] Probe: all-services-are-healthy
-[2017-12-12 17:32:05 INFO] Probe: provider-is-available
-[2017-12-12 17:32:05 INFO] Steady state hypothesis is met, we can carry on!
-[2017-12-12 17:32:05 INFO] Action: kill-provider-microservice
-[2017-12-12 17:32:07 INFO] Probe: provider-should-be-in-a-broken-state
-[2017-12-12 17:32:22 INFO] Probe: consumer-service-must-still-respond
-[2017-12-12 17:33:02 ERROR]   => failed: activity took too long to complete
-[2017-12-12 17:33:02 INFO] Probe: provider-is-back-to-a-healthy-state
-[2017-12-12 17:33:02 INFO]   Pausing before activity for 30s...
-[2017-12-12 17:33:32 INFO] Probe: all-services-are-healthy
-[2017-12-12 17:33:32 INFO] Experiment is now complete. Let's rollback...
-[2017-12-12 17:33:32 INFO] No declared rollbacks, let's move on.
-[2017-12-12 17:33:32 INFO] Experiment is now completed
+[2017-12-12 18:26:53 INFO] Validating experiment's syntax
+[2017-12-12 18:26:53 INFO] Experiment looks valid
+[2017-12-12 18:26:53 INFO] Running experiment: System is resilient to provider's failures
+[2017-12-12 18:26:53 INFO] Steady state hypothesis: Services are all available and healthy
+[2017-12-12 18:26:53 INFO] Probe: all-services-are-healthy
+[2017-12-12 18:26:53 INFO] Probe: provider-is-available
+[2017-12-12 18:26:53 INFO] Steady state hypothesis is met, we can carry on!
+[2017-12-12 18:26:53 INFO] Action: kill-provider-microservice
+[2017-12-12 18:26:56 INFO] Probe: provider-should-be-in-a-broken-state
+[2017-12-12 18:27:08 INFO] Probe: consumer-service-must-still-respond
+[2017-12-12 18:27:13 ERROR]   => failed: HTTP call failed with code 500 (expected 200): 
+        <h1>Internal Server Error</h1>
+        <p>
+            The server encountered an internal error and cannot complete
+            your request.
+        </p>
+    
+[2017-12-12 18:27:13 INFO] Probe: provider-is-back-to-a-healthy-state
+[2017-12-12 18:27:13 INFO]   Pausing before activity for 30s...
+[2017-12-12 18:27:43 INFO] Probe: all-services-are-healthy
+[2017-12-12 18:27:43 INFO] Experiment is now complete. Let's rollback...
+[2017-12-12 18:27:43 INFO] No declared rollbacks, let's move on.
+[2017-12-12 18:27:43 INFO] Experiment is now completed
 ```
 
 This new learning from the experiment invites us to learn how to overcome this
