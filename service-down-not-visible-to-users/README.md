@@ -65,28 +65,28 @@ to reply when this is what we would expect even when the producer has failed as
 shown in the following experiment sample output:
 
 ```shell
-[2017-12-06 16:38:01 INFO] Validating experiment's syntax
-[2017-12-06 16:38:01 INFO] Experiment looks valid
-[2017-12-06 16:38:01 INFO] Running experiment: System is resilient to provider's failures
-[2017-12-06 16:38:01 INFO] Steady state hypothesis: Services are all available and healthy
-[2017-12-06 16:38:01 INFO] Probe: all-services-are-healthy
-[2017-12-06 16:38:01 INFO]   => succeeded with 'True'
-[2017-12-06 16:38:01 INFO] Steady state hypothesis is met, we can carry on!
-[2017-12-06 16:38:01 INFO] Action: stop-provider-service
-[2017-12-06 16:38:01 INFO]   => succeeded without any result value
-[2017-12-06 16:38:01 INFO]   Pausing after for 10s...
-[2017-12-06 16:38:11 INFO] Probe: all-services-are-healthy
-[2017-12-06 16:38:11 INFO]   => succeeded with 'True'
-[2017-12-06 16:38:11 INFO] Probe: consumer-service-must-still-respond
-[2017-12-06 16:38:24 ERROR]    => failed: {"timestamp":1512574703491,"status":500,"error":"Internal Server Error","exception":"feign.RetryableException","message":"connect timed out executing GET http://my-provider-service:8080/","path":"/invokeConsumedService"}
-[2017-12-06 16:38:24 INFO] Experiment is now complete. Let's rollback...
-[2017-12-06 16:38:24 INFO] No declared rollbacks, let's move on.
-[2017-12-06 16:38:24 INFO] Experiment is now completed
+$ chaos --log-file=experiment.log run experiment.json 
+[2017-12-12 15:58:34 INFO] Validating experiment's syntax
+[2017-12-12 15:58:35 INFO] Experiment looks valid
+[2017-12-12 15:58:35 INFO] Running experiment: System is resilient to provider's failures
+[2017-12-12 15:58:35 INFO] Steady state hypothesis: Services are all available and healthy
+[2017-12-12 15:58:35 INFO] Probe: all-services-are-healthy
+[2017-12-12 15:58:35 INFO] Steady state hypothesis is met, we can carry on!
+[2017-12-12 15:58:35 INFO] Action: stop-provider-service
+[2017-12-12 15:58:35 INFO]   Pausing after activity for 15s...
+[2017-12-12 15:58:50 INFO] Probe: all-services-are-healthy
+[2017-12-12 15:58:50 INFO] Probe: consumer-service-must-still-respond
+[2017-12-12 15:59:00 ERROR]   => failed: HTTP call failed with code 500 (expected 200): {"timestamp":1513090740440,"status":500,"error":"Internal Server Error","exception":"feign.RetryableException","message":"connect timed out executing GET http://my-provider-service:8080/","path":"/invokeConsumedService"}
+[2017-12-12 15:59:00 INFO] Experiment is now complete. Let's rollback...
+[2017-12-12 15:59:00 INFO] No declared rollbacks, let's move on.
+[2017-12-12 15:59:00 INFO] Experiment is now completed
 ```
 
 This new learning from the experiment invites us to learn how to overcome this
 and, in our case, we'll do that using a fallback mechanism, like a circuit
 breaker, in our consumer code.
+
+Notice how you can enable a log file that will contain more traces of the run.
 
 ## Running the Experiment to Gain Confidence that the `before` Weaknesses have been Overcome
 
@@ -111,21 +111,18 @@ steady-state health according to the experiment's probes as shown in the
 following experiment sample output:
 
 ```shell
-[2017-12-06 16:42:58 INFO] Validating experiment's syntax
-[2017-12-06 16:42:58 INFO] Experiment looks valid
-[2017-12-06 16:42:58 INFO] Running experiment: System is resilient to provider's failures
-[2017-12-06 16:42:58 INFO] Steady state hypothesis: Services are all available and healthy
-[2017-12-06 16:42:58 INFO] Probe: all-services-are-healthy
-[2017-12-06 16:42:58 INFO]   => succeeded with 'True'
-[2017-12-06 16:42:58 INFO] Steady state hypothesis is met, we can carry on!
-[2017-12-06 16:42:58 INFO] Action: stop-provider-service
-[2017-12-06 16:42:58 INFO]   => succeeded without any result value
-[2017-12-06 16:42:58 INFO]   Pausing after for 10s...
-[2017-12-06 16:43:08 INFO] Probe: all-services-are-healthy
-[2017-12-06 16:43:08 INFO]   => succeeded with 'True'
-[2017-12-06 16:43:08 INFO] Probe: consumer-service-must-still-respond
-[2017-12-06 16:43:18 INFO]   => succeeded with 'Hmm, no one available to say hello just yet ... maybe try later?'
-[2017-12-06 16:43:18 INFO] Experiment is now complete. Let's rollback...
-[2017-12-06 16:43:18 INFO] No declared rollbacks, let's move on.
-[2017-12-06 16:43:18 INFO] Experiment is now completed
+$ chaos --log-file=experiment.log run experiment.json 
+[2017-12-12 15:54:15 INFO] Validating experiment's syntax
+[2017-12-12 15:54:15 INFO] Experiment looks valid
+[2017-12-12 15:54:15 INFO] Running experiment: System is resilient to provider's failures
+[2017-12-12 15:54:15 INFO] Steady state hypothesis: Services are all available and healthy
+[2017-12-12 15:54:15 INFO] Probe: all-services-are-healthy
+[2017-12-12 15:54:15 INFO] Steady state hypothesis is met, we can carry on!
+[2017-12-12 15:54:15 INFO] Action: stop-provider-service
+[2017-12-12 15:54:15 INFO]   Pausing after activity for 15s...
+[2017-12-12 15:54:30 INFO] Probe: all-services-are-healthy
+[2017-12-12 15:54:31 INFO] Probe: consumer-service-must-still-respond
+[2017-12-12 15:54:34 INFO] Experiment is now complete. Let's rollback...
+[2017-12-12 15:54:34 INFO] No declared rollbacks, let's move on.
+[2017-12-12 15:54:34 INFO] Experiment is now completed
 ```
