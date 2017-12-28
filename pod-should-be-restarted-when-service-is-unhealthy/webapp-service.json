@@ -1,0 +1,24 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+      "name": "webapp-service",
+      "labels": {
+        "service": "webapp-service"
+      }
+    },
+    "spec": {
+      "type": "NodePort",
+      "ports": [
+        {
+          "protocol": "TCP",
+          "port": 8080,
+          "nodePort": 32000
+        }
+      ],
+      "selector": {
+        "service": "webapp-service"
+      },
+      "sessionAffinity": "None"
+    }
+  }

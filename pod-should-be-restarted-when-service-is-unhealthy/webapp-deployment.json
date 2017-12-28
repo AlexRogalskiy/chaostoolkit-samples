@@ -1,0 +1,62 @@
+{
+    "apiVersion" : "apps/v1beta1",
+    "kind" : "Deployment",
+    "metadata" : {
+      "name" : "webapp-app"
+    },
+    "spec" : {
+      "replicas" : 1,
+      "selector" : {
+        "matchLabels" : {
+          "service" : "webapp-service"
+        }
+      },
+      "template" : {
+        "metadata" : {
+          "name" : "webapp-app",
+          "labels" : {
+            "name" : "webapp-app",
+            "service" : "webapp-service"
+          }
+        },
+        "spec" : {
+          "containers" : [ {
+            "name" : "webapp-app",
+            "ports" : [ {
+              "name" : "http",
+              "containerPort" : 8080,
+              "protocol" : "TCP"
+            } ],
+            "imagePullPolicy" : "Always",
+            "image" : "chaostoolkit/basic-webapp:latest",
+            "livenessProbe": {
+                "httpGet": {
+                  "path": "/health",
+                  "port":8080
+                },
+                "initialDelaySeconds": 3,
+                "periodSeconds": 5,
+                "timeoutSeconds": 2
+            },
+            "resources" : {
+              "limits" : {
+                "cpu" : 0.4,
+                "memory" : "64Mi"
+              },
+              "requests" : {
+                "cpu" : 0.2,
+                "memory" : "64Mi"
+              }
+            }
+          } ]
+        }
+      },
+      "strategy" : {
+        "type" : "RollingUpdate",
+        "rollingUpdate" : {
+          "maxUnavailable" : 1,
+          "maxSurge" : 1
+        }
+      }
+    }
+  }
