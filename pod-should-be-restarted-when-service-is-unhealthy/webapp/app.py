@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import random
-import time
-
 import cherrypy
 from cherrypy.process.wspbus import states
 from flask import abort, Flask, request
@@ -11,8 +8,7 @@ from prometheus_flask_exporter import PrometheusMetrics
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 state = {
-    "running": True,
-    "last_check": time.time()
+    "running": True
 }
 
 
@@ -42,7 +38,6 @@ def index():
                        'path': lambda: request.path})
 def confirm():
     state["running"] = False
-    state["last_check"] = time.time()
     return abort(500)
 
 
@@ -56,11 +51,6 @@ def confirm():
                        'status': lambda r: r.status_code,
                        'path': lambda: request.path})
 def health():
-    now = time.time()
-    if now - state["last_check"] >= 40:
-        state["running"] = True
-        state["last_check"] = time.time()
-
     if not state["running"]:
         return abort(503)
 
