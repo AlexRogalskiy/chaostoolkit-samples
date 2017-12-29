@@ -116,7 +116,7 @@ $ echo "GET ${WEBAPP_SERVICE_ADDR}/" > urls.txt
 These commands need only be run when you create the Kubernetes service
 resource or when you deploy Prometheus. Not everytime you run the experiment.
 
-## Run the Experiment
+## Run the Experiment
 
 You can now run the experiment as usual:
 
