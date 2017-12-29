@@ -175,7 +175,9 @@ This command is only available if you installed the
 
 ## Analysis
 
-The attached report, in this repository, is an example of such a run.
+The [attached report][report], in this repository, is an example of such a run.
+
+[report]: https://github.com/chaostoolkit/chaostoolkit-samples/blob/master/pod-should-be-restarted-when-service-is-unhealthy/chaos-report.pdf
 
 The failure occured with the `confirm-purchase` call at 5:24:07pm. Looking at
 page 7, we can start seeing `500 Server Error` errors showing up while `200 OK`
