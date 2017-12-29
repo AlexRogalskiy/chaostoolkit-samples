@@ -53,10 +53,10 @@
             "provider": {
                 "type": "process",
                 "path": "vegeta",
-                "timeout": 73,
+                "timeout": 63,
                 "arguments": {
                     "attack": "",
-                    "-duration": "70s",
+                    "-duration": "60s",
                     "-connections": "1",
                     "-rate": "1",
                     "-output": "report.bin",
@@ -89,7 +89,32 @@
                 }
             },
             "pauses": {
-                "before": 30
+                "before": 45
+            }
+        },
+        {
+            "type": "probe",
+            "name": "read-webapp-logs-for-the-pod-that-was-killed",
+            "provider": {
+                "type": "python",
+                "module": "chaosk8s.probes",
+                "func": "read_microservices_logs",
+                "arguments": {
+                    "name": "webapp-app",
+                    "from_previous": true
+                }
+            }
+        },
+        {
+            "type": "probe",
+            "name": "read-webapp-logs-for-pod-that-was-started",
+            "provider": {
+                "type": "python",
+                "module": "chaosk8s.probes",
+                "func": "read_microservices_logs",
+                "arguments": {
+                    "name": "webapp-app"
+                }
             }
         },
         {
