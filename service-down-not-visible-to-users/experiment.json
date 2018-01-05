@@ -19,6 +19,15 @@
                     "module": "chaosk8s.probes",
                     "func": "all_microservices_healthy"
                 }
+            },
+            {
+                "type": "probe",
+                "name": "consumer-service-must-still-respond",
+                "tolerance": 200,
+                "provider": {
+                    "type": "http",
+                    "url": "http://192.168.39.7:31546/invokeConsumedService"
+                }
             }
         ]
     },
@@ -41,14 +50,6 @@
         {
             "type": "probe",
             "ref": "all-services-are-healthy"
-        },
-        {
-            "type": "probe",
-            "name": "consumer-service-must-still-respond",
-            "provider": {
-                "type": "http",
-                "url": "http://192.168.39.7:31546/invokeConsumedService"
-            }
         }
     ],
     "rollbacks": []
